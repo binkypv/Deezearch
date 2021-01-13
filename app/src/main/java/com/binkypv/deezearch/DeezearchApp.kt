@@ -13,7 +13,10 @@ class DeezearchApp: Application() {
             androidLogger()
             androidContext(this@DeezearchApp)
             modules(
-                Modules.viewModelModule
+                Modules.viewModelModule,
+                Modules.repositoryModule,
+                Modules.dataSourceModule,
+                Modules.netModule
             )
         }
     }
