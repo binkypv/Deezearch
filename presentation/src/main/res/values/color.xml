@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="separator">#8f8f8f</color>
+    <color name="white_text">#f3f3f3</color>
+    <color name="grey_text">#a3a3a3</color>
+    <color name="background">#000000</color>
 </resources>

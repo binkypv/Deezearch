@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="tiny_space">4dp</dimen>
     <dimen name="small_space">8dp</dimen>
     <dimen name="normal_space">16dp</dimen>
     <dimen name="artist_row_image_size">40dp</dimen>

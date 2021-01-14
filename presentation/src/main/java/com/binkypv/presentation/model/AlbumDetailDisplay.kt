@@ -16,7 +16,7 @@ data class TrackDisplay(
     val id: String
 )
 
-fun TrackModel.toDisplay() = TrackDisplay(title, performers, id)
+fun TrackModel.toDisplay() = TrackDisplay(title.toUpperCase(), performers, id)
 
 fun AlbumDetailsModel.toDisplay() =
     AlbumDetailsDisplay(coverUrl, title, artist, tracklist.map { it.toDisplay() })

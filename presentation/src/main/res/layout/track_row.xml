@@ -9,36 +9,47 @@
 
         <TextView
             android:id="@+id/track_number"
+            style="@style/RegularTextStyle.Grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_space"
+            app:layout_constraintBottom_toBottomOf="@id/track_artist"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/track_title"
-            app:layout_constraintBottom_toBottomOf="@id/track_artist"
-            android:layout_marginStart="@dimen/normal_space"
             tools:text="1" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/track_title"
+            style="@style/BoldTextStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="This is the track title!"
-            android:layout_marginTop="@dimen/small_space"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/normal_space"
+            android:layout_marginTop="@dimen/small_space"
+            android:layout_marginEnd="@dimen/small_space"
+            android:ellipsize="end"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/track_artist"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/track_number"
-            android:id="@+id/track_title"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="This is the track title!" />
 
         <TextView
             android:id="@+id/track_artist"
-            android:layout_width="wrap_content"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/small_space"
+            style="@style/RegularTextStyle.Grey"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="This is the track performer"
             android:layout_marginStart="@dimen/normal_space"
+            android:layout_marginEnd="@dimen/small_space"
+            android:layout_marginBottom="@dimen/small_space"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/track_number"
-            app:layout_constraintTop_toBottomOf="@id/track_title"/>
+            app:layout_constraintTop_toBottomOf="@id/track_title"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="This is the track performer" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

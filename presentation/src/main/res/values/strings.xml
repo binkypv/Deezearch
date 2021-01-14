@@ -4,4 +4,6 @@
     <string name="default_error_message">Something went wrong :(</string>
     <string name="search_screen_title">Search</string>
     <string name="albums_screen_title">Albums</string>
+    <string name="search_start_text">Start your search here! Enter an artist in the searchbar</string>
+    <string name="search_no_results_text">Sorry! There were no results, try with another artist</string>
 </resources>

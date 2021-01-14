@@ -5,7 +5,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small_space">
+        android:background="@color/background"
+        android:paddingStart="@dimen/small_space"
+        android:paddingTop="@dimen/small_space"
+        android:paddingEnd="@dimen/small_space">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/albums_toolbar"
@@ -17,6 +20,7 @@
             app:navigationIcon="?attr/homeAsUpIndicator">
 
             <TextView
+                style="@style/ScreenTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_space"

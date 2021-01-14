@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ScreenTitleTextStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="BoldTextStyle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="RegularTextStyle.Grey" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/grey_text</item>
+    </style>
+
+    <style name="RegularTextStyle.White" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+</resources>
