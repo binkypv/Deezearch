@@ -2,7 +2,6 @@
 <resources>
 
     <style name="ScreenTitleTextStyle" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white_text</item>
     </style>
 

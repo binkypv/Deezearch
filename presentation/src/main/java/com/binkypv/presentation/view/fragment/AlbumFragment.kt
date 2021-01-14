@@ -1,18 +1,27 @@
 package com.binkypv.presentation.view.fragment
 
+import android.graphics.Bitmap
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
+import com.binkypv.presentation.R
 import com.binkypv.presentation.adapter.TracklistAdapter
 import com.binkypv.presentation.databinding.FragmentAlbumBinding
-import com.binkypv.presentation.utils.configurePaging
 import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class AlbumFragment : BaseFragment() {
     private lateinit var binding: FragmentAlbumBinding
@@ -37,7 +46,7 @@ class AlbumFragment : BaseFragment() {
         albumTracksViewModel.retrieveAlbumTracks(args.albumId)
     }
 
-    private fun initViews(){
+    private fun initViews() {
         binding.albumTracklist.adapter = adapter
     }
 
@@ -55,12 +64,7 @@ class AlbumFragment : BaseFragment() {
         albumTracksViewModel.results.observe(viewLifecycleOwner, {
 //            hideLoader()
             adapter.submitList(it.tracklist)
-
-            Glide.with(binding.albumCoverImage)
-                .load(it.coverUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.albumCoverImage)
-
+            setCoverArt(it.coverUrl)
             binding.albumArtist.text = it.artist
             binding.albumTitle.text = it.title
         })
@@ -69,5 +73,53 @@ class AlbumFragment : BaseFragment() {
 //            hideLoader()
             showError()
         })
+    }
+
+    private fun setCoverArt(imgUrl: String) {
+        Glide.with(binding.albumCoverImage)
+            .asBitmap()
+            .load(imgUrl)
+            .listener(object : RequestListener<Bitmap> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    setPlaceholderCoverArt()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    setGradientBackground(resource)
+                    return false
+                }
+            }).into(binding.albumCoverImage)
+    }
+
+    private fun setPlaceholderCoverArt() {
+        binding.albumCoverImage.setImageDrawable(getDrawable(requireContext(),
+            R.drawable.ic_album_placeholder))
+    }
+
+    private fun setGradientBackground(resource: Bitmap?) {
+        resource?.let { bitmap ->
+            Palette.Builder(bitmap).generate { img ->
+                val dominantColor =
+                    img?.getDominantColor(ContextCompat.getColor(
+                        requireContext(),
+                        R.color.background))
+                val gradient = GradientDrawable(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(dominantColor ?: R.color.background, R.color.background))
+                binding.albumTopLayout.background = gradient
+            }
+        }
     }
 }

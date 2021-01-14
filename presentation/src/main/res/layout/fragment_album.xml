@@ -13,64 +13,71 @@
             android:layout_height="wrap_content"
             android:background="@color/background">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/album_toolbar"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/album_top_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="?attr/homeAsUpIndicator" />
+                android:background="@color/background">
 
-            <ImageView
-                android:id="@+id/album_cover_image"
-                android:layout_width="@dimen/album_art_size"
-                android:layout_height="@dimen/album_art_size"
-                android:layout_marginBottom="@dimen/normal_space"
-                android:src="@drawable/ic_album_placeholder"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_toolbar" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/album_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navigationIcon="?attr/homeAsUpIndicator" />
 
-            <TextView
-                android:id="@+id/album_title"
-                style="@style/BoldTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_space"
-                android:layout_marginTop="@dimen/normal_space"
-                android:ellipsize="end"
-                android:maxLines="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_cover_image"
-                tools:text="TITLE" />
+                <ImageView
+                    android:id="@+id/album_cover_image"
+                    android:layout_width="@dimen/album_art_size"
+                    android:layout_height="@dimen/album_art_size"
+                    android:layout_marginBottom="@dimen/normal_space"
+                    android:src="@drawable/ic_album_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/album_toolbar" />
 
-            <TextView
-                android:id="@+id/album_artist"
-                style="@style/RegularTextStyle.Grey"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_space"
-                android:layout_marginTop="@dimen/tiny_space"
-                android:ellipsize="end"
-                android:maxLines="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_title"
-                tools:text="Artist" />
+                <TextView
+                    android:id="@+id/album_title"
+                    style="@style/BoldTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_space"
+                    android:layout_marginTop="@dimen/normal_space"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/album_cover_image"
+                    tools:text="TITLE" />
 
-            <View
-                android:id="@+id/album_separator"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/normal_space"
-                android:layout_marginBottom="@dimen/normal_space"
-                android:background="@color/separator"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_artist" />
+                <TextView
+                    android:id="@+id/album_artist"
+                    style="@style/RegularTextStyle.Grey"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_space"
+                    android:layout_marginTop="@dimen/tiny_space"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/album_title"
+                    tools:text="Artist" />
+
+                <View
+                    android:id="@+id/album_separator"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/normal_space"
+                    android:layout_marginBottom="@dimen/normal_space"
+                    android:background="@color/separator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/album_artist" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/album_tracklist"
@@ -81,7 +88,8 @@
                 android:layout_marginEnd="@dimen/small_space"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_separator" />
+                app:layout_constraintTop_toBottomOf="@id/album_top_layout"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
