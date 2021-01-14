@@ -2,4 +2,6 @@
 <resources>
     <string name="search_artists_header">Artists</string>
     <string name="default_error_message">Something went wrong :(</string>
+    <string name="search_screen_title">Search</string>
+    <string name="albums_screen_title">Albums</string>
 </resources>

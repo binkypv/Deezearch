@@ -5,7 +5,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.binkypv.presentation.view.fragment.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="@string/search_screen_title">
         <action
             android:id="@+id/action_searchFragment_to_artistFragment"
             app:destination="@id/artistFragment"
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.binkypv.presentation.view.fragment.ArtistFragment"
-        android:label="ArtistFragment" >
+        android:label="@string/albums_screen_title">
         <argument
             android:name="artistId"
             app:argType="string" />

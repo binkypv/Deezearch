@@ -11,5 +11,4 @@ open class BaseFragment : Fragment() {
             msg ?: getString(R.string.default_error_message),
             Toast.LENGTH_LONG).show()
     }
-
 }

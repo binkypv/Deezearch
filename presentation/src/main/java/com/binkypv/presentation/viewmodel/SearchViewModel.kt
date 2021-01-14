@@ -48,7 +48,7 @@ class SearchViewModel(private val deezerRepository: DeezerRepository) : ViewMode
     }
 
     fun loadMore() {
-        if (!fetching) {
+        if (!fetching && !searchTerm.isNullOrBlank()) {
             fetching = true
             viewModelScope.launch {
                 _loading.postValue(Unit)

@@ -15,7 +15,7 @@ import com.binkypv.presentation.utils.GridSpacingItemDecoration
 import com.binkypv.presentation.viewmodel.ArtistViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ArtistFragment : BaseFragment() {
+class AlbumFragment : BaseFragment() {
     private lateinit var binding: FragmentArtistBinding
     private val adapter: AlbumsAdapter by lazy { AlbumsAdapter { id -> navigateToAlbum(id) } }
     private val searchViewModel: ArtistViewModel by viewModel()
@@ -38,6 +38,14 @@ class ArtistFragment : BaseFragment() {
     }
 
     private fun initViews() {
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+        activity?.actionBar?.setDisplayShowHomeEnabled(true)
+
+        val toolbar = activity?.actionBar as Toolbar
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.artistAlbumList.layoutManager = GridLayoutManager(context, 2)
         binding.artistAlbumList.addItemDecoration(GridSpacingItemDecoration(2,
             resources.getDimensionPixelSize(R.dimen.small_space),
