@@ -22,5 +22,18 @@
         <argument
             android:name="artistName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_artistFragment_to_albumFragment"
+            app:destination="@id/albumFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.binkypv.presentation.view.fragment.AlbumFragment"
+        android:label="AlbumFragment" >
+        <argument
+            android:name="albumId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -27,7 +27,7 @@ data class ArtistEntity(
     @SerializedName("nb_fan") val nbFan: Int,
     @SerializedName("radio") val radio: Boolean,
     @SerializedName("tracklist") val tracklist: String,
-    @SerializedName("type") val type: String,
+    @SerializedName("type") val type: String
 ) {
     fun toDomain() = ArtistModel(name, picture, id)
 }

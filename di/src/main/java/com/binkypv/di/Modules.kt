@@ -3,6 +3,7 @@ package com.binkypv.di
 import com.binkypv.data.datasource.DeezerDataSource
 import com.binkypv.data.repository.DeezerRepositoryImpl
 import com.binkypv.domain.repository.DeezerRepository
+import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.binkypv.presentation.viewmodel.ArtistViewModel
 import com.binkypv.presentation.viewmodel.SearchViewModel
 import com.google.gson.FieldNamingPolicy
@@ -21,6 +22,7 @@ object Modules {
     val viewModelModule = module {
         viewModel { SearchViewModel(get()) }
         viewModel { ArtistViewModel(get()) }
+        viewModel { AlbumTracksViewModel(get()) }
     }
 
     val repositoryModule = module {

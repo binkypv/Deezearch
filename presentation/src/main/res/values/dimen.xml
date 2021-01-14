@@ -5,5 +5,5 @@
     <dimen name="artist_row_image_size">40dp</dimen>
     <dimen name="loading_elevation">10dp</dimen>
     <dimen name="huge_space">128dp</dimen>
-    <dimen name="album_art_size">120dp</dimen>
+    <dimen name="album_art_size">240dp</dimen>
 </resources>

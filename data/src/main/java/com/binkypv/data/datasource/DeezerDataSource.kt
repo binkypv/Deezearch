@@ -1,5 +1,6 @@
 package com.binkypv.data.datasource
 
+import com.binkypv.data.model.AlbumDetailsEntity
 import com.binkypv.data.model.AlbumEntity
 import com.binkypv.data.model.ArtistAlbumsEntity
 import com.binkypv.data.model.ArtistSearchResultEntity
@@ -20,4 +21,8 @@ interface DeezerDataSource {
         @Path("artistId") artistId: String
     ): ArtistAlbumsEntity
 
+    @GET("/album/{albumId}")
+    suspend fun getAlbumDetails(
+        @Path("albumId") albumId: String
+    ): AlbumDetailsEntity
 }
