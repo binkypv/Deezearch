@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_space">
+
+        <ImageView
+            android:id="@+id/artist_album_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_space"
+            android:src="@drawable/ic_artist_placeholder"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/artist_album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_space"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/artist_album_image"
+            app:layout_constraintStart_toStartOf="@id/artist_album_image"
+            app:layout_constraintTop_toBottomOf="@id/artist_album_image"
+            tools:text="Album name" />
+
+        <TextView
+            android:id="@+id/artist_album_performer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_space"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/normal_space"
+            app:layout_constraintEnd_toEndOf="@id/artist_album_image"
+            app:layout_constraintStart_toStartOf="@id/artist_album_image"
+            app:layout_constraintTop_toBottomOf="@id/artist_album_title"
+            tools:text="Artist name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

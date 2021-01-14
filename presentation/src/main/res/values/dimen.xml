@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="small_space">8dp</dimen>
-    <dimen name="normal_space">12dp</dimen>
+    <dimen name="normal_space">16dp</dimen>
+    <dimen name="artist_row_image_size">40dp</dimen>
+    <dimen name="loading_elevation">10dp</dimen>
+    <dimen name="huge_space">128dp</dimen>
+    <dimen name="album_art_size">120dp</dimen>
 </resources>

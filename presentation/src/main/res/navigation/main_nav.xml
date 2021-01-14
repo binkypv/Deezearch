@@ -5,5 +5,22 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.binkypv.presentation.view.fragment.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_artistFragment"
+            app:destination="@id/artistFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.binkypv.presentation.view.fragment.ArtistFragment"
+        android:label="ArtistFragment" >
+        <argument
+            android:name="artistId"
+            app:argType="string" />
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+    </fragment>
 </navigation>

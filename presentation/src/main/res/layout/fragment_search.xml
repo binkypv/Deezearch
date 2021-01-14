@@ -29,14 +29,17 @@
             android:layout_height="wrap_content"
             android:text="test"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_artists_header"/>
+            app:layout_constraintTop_toBottomOf="@id/search_artists_header" />
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/search_artists_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginTop="@dimen/normal_space"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/search_artists_header" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_artists_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/normal_space"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/search_button"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

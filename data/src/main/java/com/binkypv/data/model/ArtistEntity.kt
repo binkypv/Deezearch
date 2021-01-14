@@ -1,5 +1,6 @@
 package com.binkypv.data.model
 
+import com.binkypv.data.utils.MapperUtils
 import com.binkypv.domain.model.ArtistModel
 import com.binkypv.domain.model.SearchResultModel
 import com.google.gson.annotations.SerializedName
@@ -8,8 +9,9 @@ data class ArtistSearchResultEntity(
     @SerializedName("data") val data: List<ArtistEntity>,
     @SerializedName("total") val total: Int,
     @SerializedName("next") val next: String?,
+    @SerializedName("prev") val prev: String?,
 ) {
-    fun toDomain() = SearchResultModel(next, data.map { it.toDomain() })
+    fun toDomain() = SearchResultModel(MapperUtils.getNextIndexFromUrl(next), data.map { it.toDomain() })
 }
 
 data class ArtistEntity(

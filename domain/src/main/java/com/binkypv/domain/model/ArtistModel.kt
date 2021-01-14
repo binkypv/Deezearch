@@ -1,7 +1,7 @@
 package com.binkypv.domain.model
 
 data class SearchResultModel(
-    val next: String?,
+    val next: Int?,
     val artists: List<ArtistModel>
 )
 

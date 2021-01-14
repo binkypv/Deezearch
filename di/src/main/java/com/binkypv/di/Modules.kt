@@ -3,6 +3,7 @@ package com.binkypv.di
 import com.binkypv.data.datasource.DeezerDataSource
 import com.binkypv.data.repository.DeezerRepositoryImpl
 import com.binkypv.domain.repository.DeezerRepository
+import com.binkypv.presentation.viewmodel.ArtistViewModel
 import com.binkypv.presentation.viewmodel.SearchViewModel
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -19,6 +20,7 @@ private const val BASE_URL = "https://api.deezer.com/"
 object Modules {
     val viewModelModule = module {
         viewModel { SearchViewModel(get()) }
+        viewModel { ArtistViewModel(get()) }
     }
 
     val repositoryModule = module {
