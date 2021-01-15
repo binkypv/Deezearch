@@ -39,8 +39,6 @@ class SearchViewModel(private val deezerRepository: DeezerRepository) : BaseView
         if (!fetching && !searchTerm.isNullOrBlank()) {
             fetching = true
             viewModelScope.launch(exceptionHandler) {
-                _loading.postValue(Unit)
-
                 deezerRepository.getArtists(searchTerm ?: "", _next.value).apply {
                     val fetchedArtistList: MutableList<ArtistListItem> =
                         artists.map { it.toDisplay() }.toMutableList()

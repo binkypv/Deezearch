@@ -18,7 +18,8 @@ interface DeezerDataSource {
 
     @GET("/artist/{artistId}/albums")
     suspend fun getArtistAlbums(
-        @Path("artistId") artistId: String
+        @Path("artistId") artistId: String,
+        @Query("index") index: Int? = null
     ): ArtistAlbumsEntity
 
     @GET("/album/{albumId}")

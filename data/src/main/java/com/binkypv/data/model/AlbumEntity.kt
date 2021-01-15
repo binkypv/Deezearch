@@ -1,13 +1,20 @@
 package com.binkypv.data.model
 
+import com.binkypv.data.utils.MapperUtils
 import com.binkypv.domain.model.AlbumModel
+import com.binkypv.domain.model.AlbumsResultModel
 import com.google.gson.annotations.SerializedName
 
 data class ArtistAlbumsEntity(
-    @SerializedName("data") val data: List<AlbumEntity>
-)
+    @SerializedName("data") val data: List<AlbumEntity>,
+    @SerializedName("next") val next: String?,
+    @SerializedName("prev") val prev: String?,
+) {
+    fun toDomain(artist: String) =
+        AlbumsResultModel(MapperUtils.getNextIndexFromUrl(next), data.map { it.toDomain(artist) })
+}
 
-data class AlbumEntity (
+data class AlbumEntity(
     @SerializedName("id") val id: String,
     @SerializedName("title") val title: String,
     @SerializedName("link") val link: String,
@@ -23,7 +30,7 @@ data class AlbumEntity (
     @SerializedName("record_type") val recordType: String,
     @SerializedName("tracklist") val tracklist: String,
     @SerializedName("explicity_lyrics") val explicitLyrics: Boolean,
-    @SerializedName("type") val type: String
-){
+    @SerializedName("type") val type: String,
+) {
     fun toDomain(artist: String) = AlbumModel(title, artist, cover, id)
 }

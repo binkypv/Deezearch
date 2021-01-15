@@ -19,7 +19,7 @@ private const val NO_RESULTS_VIEW_FLIPPER_CHILD = 1
 private const val RESULTS_VIEW_FLIPPER_CHILD = 2
 private const val LOADING_VIEW_FLIPPER_CHILD = 3
 
-private const val TEXT_SEARCH_DELAY = 1000L
+private const val TEXT_SEARCH_DELAY = 500L
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding =

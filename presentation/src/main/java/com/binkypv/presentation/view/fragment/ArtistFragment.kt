@@ -9,18 +9,22 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.binkypv.presentation.R
 import com.binkypv.presentation.adapter.AlbumsAdapter
-import com.binkypv.presentation.databinding.FragmentAlbumBinding
 import com.binkypv.presentation.databinding.FragmentArtistBinding
 import com.binkypv.presentation.utils.GridSpacingItemDecoration
+import com.binkypv.presentation.utils.configurePaging
 import com.binkypv.presentation.viewmodel.ArtistViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+private const val NO_RESULTS_VIEW_FLIPPER_CHILD = 0
+private const val RESULTS_VIEW_FLIPPER_CHILD = 1
+private const val LOADING_VIEW_FLIPPER_CHILD = 2
 
 class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentArtistBinding =
         FragmentArtistBinding::inflate
 
     private val adapter: AlbumsAdapter by lazy { AlbumsAdapter { id -> navigateToAlbum(id) } }
-    private val searchViewModel: ArtistViewModel by viewModel()
+    private val artistViewModel: ArtistViewModel by viewModel()
     private val args: ArtistFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +32,7 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
         initViews()
         initListeners()
         initObservers()
-        searchViewModel.retrieveAlbums(args.artistId, args.artistName)
+        artistViewModel.retrieveAlbums(args.artistId, args.artistName)
     }
 
     private fun initViews() {
@@ -37,6 +41,11 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
             resources.getDimensionPixelSize(R.dimen.small_space),
             true))
         binding.artistAlbumList.adapter = adapter
+        binding.artistAlbumList.configurePaging(true) {
+            artistViewModel.loadMore(args.artistId,
+                args.artistName)
+        }
+        binding.artistFlipper.displayedChild = LOADING_VIEW_FLIPPER_CHILD
     }
 
     private fun initListeners() {
@@ -46,18 +55,26 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
     }
 
     private fun initObservers() {
-        searchViewModel.loading.observe(viewLifecycleOwner, {
-//            showLoader()
+        artistViewModel.loading.observe(viewLifecycleOwner, {
+            binding.artistFlipper.displayedChild = LOADING_VIEW_FLIPPER_CHILD
         })
 
-        searchViewModel.results.observe(viewLifecycleOwner, {
-//            hideLoader()
+        artistViewModel.results.observe(viewLifecycleOwner, {
             adapter.submitList(it)
+            binding.artistFlipper.displayedChild =
+                if (it.isNotEmpty()) RESULTS_VIEW_FLIPPER_CHILD else NO_RESULTS_VIEW_FLIPPER_CHILD
         })
 
-        searchViewModel.error.observe(viewLifecycleOwner, {
-//            hideLoader()
+        artistViewModel.error.observe(viewLifecycleOwner, {
+            binding.artistFlipper.displayedChild = NO_RESULTS_VIEW_FLIPPER_CHILD
             showError()
+        })
+
+        artistViewModel.next.observe(viewLifecycleOwner, {
+            binding.artistAlbumList.configurePaging(it != null) {
+                artistViewModel.loadMore(args.artistId,
+                    args.artistName)
+            }
         })
     }
 

@@ -19,6 +19,7 @@ import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -73,6 +74,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
         Glide.with(binding.albumCoverImage)
             .asBitmap()
             .load(imgUrl)
+            .transition(BitmapTransitionOptions.withCrossFade())
             .listener(object : RequestListener<Bitmap> {
                 override fun onLoadFailed(
                     e: GlideException?,

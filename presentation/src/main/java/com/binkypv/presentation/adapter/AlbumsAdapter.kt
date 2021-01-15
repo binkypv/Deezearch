@@ -1,56 +1,92 @@
 package com.binkypv.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.binkypv.presentation.R
 import com.binkypv.presentation.databinding.AlbumRowBinding
+import com.binkypv.presentation.databinding.LoadingItemBinding
 import com.binkypv.presentation.model.AlbumDisplay
+import com.binkypv.presentation.model.AlbumListItem
+import com.binkypv.presentation.model.AlbumLoadingItem
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-class AlbumsAdapter(private val onClick: (String) -> Unit) :
-    androidx.recyclerview.widget.ListAdapter<AlbumDisplay, AlbumViewHolder>(
-        albumsDiffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        AlbumViewHolder(
-            AlbumRowBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-        )
+private const val LOADING_ITEM = 0
+private const val ALBUM_ITEM = 1
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick)
+class AlbumsAdapter(private val onClick: (String) -> Unit) :
+    androidx.recyclerview.widget.ListAdapter<AlbumListItem, AlbumListItemViewHolder>(
+        albumsDiffCallback) {
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is AlbumLoadingItem -> LOADING_ITEM
+            else -> ALBUM_ITEM
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        when (viewType) {
+            LOADING_ITEM -> {
+                LoadingAlbumViewHolder(
+                    LoadingItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> {
+                AlbumViewHolder(
+                    AlbumRowBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                )
+            }
+        }
+
+    override fun onBindViewHolder(holder: AlbumListItemViewHolder, position: Int) {
+        if (holder is AlbumViewHolder) {
+            holder.bind(getItem(position), onClick)
+        }
     }
 }
 
-val albumsDiffCallback = object : DiffUtil.ItemCallback<AlbumDisplay>() {
+val albumsDiffCallback = object : DiffUtil.ItemCallback<AlbumListItem>() {
     override fun areItemsTheSame(
-        oldItem: AlbumDisplay,
-        newItem: AlbumDisplay,
-    ) = oldItem.id == newItem.id
+        oldItem: AlbumListItem,
+        newItem: AlbumListItem,
+    ) = oldItem.areItemsTheSame(newItem)
 
     override fun areContentsTheSame(
-        oldItem: AlbumDisplay,
-        newItem: AlbumDisplay,
-    ): Boolean = oldItem == newItem
+        oldItem: AlbumListItem,
+        newItem: AlbumListItem,
+    ): Boolean = oldItem.areContentsTheSame(newItem)
 }
 
 class AlbumViewHolder(private val binding: AlbumRowBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    AlbumListItemViewHolder(binding.root) {
     fun bind(
-        model: AlbumDisplay,
+        model: AlbumListItem,
         onClick: (String) -> Unit,
     ) {
-        Glide.with(binding.artistAlbumImage)
-            .load(if (model.imageUrl.isNullOrEmpty()) binding.artistAlbumImage.context.getDrawable(R.drawable.ic_artist_placeholder) else model.imageUrl)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.artistAlbumImage)
+        if (model is AlbumDisplay) {
+            Glide.with(binding.artistAlbumImage)
+                .load(if (model.imageUrl.isEmpty()) binding.artistAlbumImage.context.getDrawable(R.drawable.ic_artist_placeholder) else model.imageUrl)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(binding.artistAlbumImage)
 
-        binding.artistAlbumTitle.text = model.name
-        binding.artistAlbumPerformer.text = model.artist
+            binding.artistAlbumTitle.text = model.name
+            binding.artistAlbumPerformer.text = model.artist
 
-        binding.root.setOnClickListener { onClick(model.id) }
+            binding.root.setOnClickListener { onClick(model.id) }
+        }
     }
 }
+
+class LoadingAlbumViewHolder(private val binding: LoadingItemBinding) :
+    AlbumListItemViewHolder(binding.root)
+
+sealed class AlbumListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)

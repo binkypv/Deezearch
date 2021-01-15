@@ -10,8 +10,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_space"
-            android:layout_marginBottom="@dimen/small_space">
+            android:background="@color/background">
 
             <ProgressBar
                 android:layout_width="match_parent"
