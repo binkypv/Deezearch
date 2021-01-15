@@ -17,11 +17,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 private const val START_SEARCH_VIEW_FLIPPER_CHILD = 0
 private const val NO_RESULTS_VIEW_FLIPPER_CHILD = 1
 private const val RESULTS_VIEW_FLIPPER_CHILD = 2
+private const val LOADING_VIEW_FLIPPER_CHILD = 3
 
 private const val TEXT_SEARCH_DELAY = 1000L
 
-class SearchFragment : BaseFragment() {
-    private lateinit var binding: FragmentSearchBinding
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding =
+        FragmentSearchBinding::inflate
+
     private val adapter: ArtistAdapter by lazy {
         ArtistAdapter { id, name ->
             navigateToArtist(id,
@@ -30,15 +33,6 @@ class SearchFragment : BaseFragment() {
     }
     private val searchViewModel: SearchViewModel by viewModel()
     private val searchHandler = Handler(Looper.getMainLooper())
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentSearchBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,8 +52,10 @@ class SearchFragment : BaseFragment() {
             override fun onQueryTextSubmit(query: String?) = false
 
             override fun onQueryTextChange(text: String?): Boolean {
+                searchHandler.removeCallbacksAndMessages(null)
                 if (!text.isNullOrBlank()) {
                     searchHandler.postDelayed({
+                        adapter.submitList(emptyList())
                         searchViewModel.retrieveArtists(text)
                     }, TEXT_SEARCH_DELAY)
                 } else {
@@ -68,25 +64,22 @@ class SearchFragment : BaseFragment() {
                 }
                 return false
             }
-
         })
     }
 
     private fun initObservers() {
         searchViewModel.loading.observe(viewLifecycleOwner, {
-//            showLoader()
+            binding.searchFlipper.displayedChild = LOADING_VIEW_FLIPPER_CHILD
         })
 
         searchViewModel.results.observe(viewLifecycleOwner, {
-//            hideLoader()
             adapter.submitList(it)
             binding.searchFlipper.displayedChild =
                 if (it.isNotEmpty()) RESULTS_VIEW_FLIPPER_CHILD else NO_RESULTS_VIEW_FLIPPER_CHILD
-            binding.searchArtistsList.smoothScrollToPosition(0)
         })
 
         searchViewModel.error.observe(viewLifecycleOwner, {
-//            hideLoader()
+            binding.searchFlipper.displayedChild = NO_RESULTS_VIEW_FLIPPER_CHILD
             showError()
         })
 

@@ -14,6 +14,7 @@ import androidx.palette.graphics.Palette
 import com.binkypv.presentation.R
 import com.binkypv.presentation.adapter.TracklistAdapter
 import com.binkypv.presentation.databinding.FragmentAlbumBinding
+import com.binkypv.presentation.databinding.FragmentSearchBinding
 import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -23,20 +24,13 @@ import com.bumptech.glide.request.target.Target
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class AlbumFragment : BaseFragment() {
-    private lateinit var binding: FragmentAlbumBinding
+class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlbumBinding =
+        FragmentAlbumBinding::inflate
+
     private val adapter: TracklistAdapter by lazy { TracklistAdapter() }
     private val albumTracksViewModel: AlbumTracksViewModel by viewModel()
     private val args: AlbumFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentAlbumBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
