@@ -61,7 +61,7 @@ class AlbumTracksViewModelTest: KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveAlbumTracks("id")
+            viewmodel.start("id")
         }
 
         // then

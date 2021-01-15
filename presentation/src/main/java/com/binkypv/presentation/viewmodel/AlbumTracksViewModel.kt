@@ -12,7 +12,7 @@ class AlbumTracksViewModel(private val deezerRepository: DeezerRepository) : Bas
     private val _results = MutableLiveData<AlbumDetailsDisplay>()
     val results: LiveData<AlbumDetailsDisplay> = _results
 
-    fun retrieveAlbumTracks(albumId: String) {
+    fun start(albumId: String) {
         viewModelScope.launch(exceptionHandler) {
             _results.postValue(deezerRepository.getAlbumDetails(albumId).toDisplay())
         }

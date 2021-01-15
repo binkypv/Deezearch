@@ -58,7 +58,7 @@ class ArtistViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveAlbums("id", "name")
+            viewmodel.start("id", "name")
         }
 
         // then
@@ -89,7 +89,7 @@ class ArtistViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveAlbums("id", "name")
+            viewmodel.start("id", "name")
         }
 
         // then
@@ -115,7 +115,7 @@ class ArtistViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveAlbums("id", "name")
+            viewmodel.start("id", "name")
             viewmodel.loadMore("id", "name")
         }
 

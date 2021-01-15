@@ -56,7 +56,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 if (!text.isNullOrBlank()) {
                     searchHandler.postDelayed({
                         adapter.submitList(emptyList())
-                        searchViewModel.retrieveArtists(text)
+                        searchViewModel.onSearchTermChanged(text)
                     }, TEXT_SEARCH_DELAY)
                 } else {
                     binding.searchFlipper.displayedChild = START_SEARCH_VIEW_FLIPPER_CHILD

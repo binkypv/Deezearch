@@ -20,7 +20,7 @@ class SearchViewModel(private val deezerRepository: DeezerRepository) : BaseView
     var fetching = false
     var searchTerm: String? = null
 
-    fun retrieveArtists(term: String, index: Int? = null) {
+    fun onSearchTermChanged(term: String, index: Int? = null) {
         searchTerm = term
         viewModelScope.launch(exceptionHandler) {
             _loading.postValue(Unit)

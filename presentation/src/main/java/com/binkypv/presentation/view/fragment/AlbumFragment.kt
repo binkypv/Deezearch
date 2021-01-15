@@ -38,7 +38,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
         initViews()
         initListeners()
         initObservers()
-        albumTracksViewModel.retrieveAlbumTracks(args.albumId)
+        albumTracksViewModel.start(args.albumId)
     }
 
     private fun initViews() {
@@ -52,12 +52,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
     }
 
     private fun initObservers() {
-        albumTracksViewModel.loading.observe(viewLifecycleOwner, {
-//            showLoader()
-        })
-
         albumTracksViewModel.results.observe(viewLifecycleOwner, {
-//            hideLoader()
             adapter.submitList(it.tracklist)
             setCoverArt(it.coverUrl)
             binding.albumArtist.text = it.artist
@@ -65,7 +60,6 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
         })
 
         albumTracksViewModel.error.observe(viewLifecycleOwner, {
-//            hideLoader()
             showError()
         })
     }

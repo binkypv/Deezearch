@@ -57,7 +57,7 @@ class SearchViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveArtists("name")
+            viewmodel.onSearchTermChanged("name")
         }
 
         // then
@@ -87,7 +87,7 @@ class SearchViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveArtists("name")
+            viewmodel.onSearchTermChanged("name")
         }
 
         // then
@@ -112,7 +112,7 @@ class SearchViewModelTest : KoinTest {
 
         // when
         runBlocking {
-            viewmodel.retrieveArtists("name")
+            viewmodel.onSearchTermChanged("name")
             viewmodel.loadMore()
         }
 

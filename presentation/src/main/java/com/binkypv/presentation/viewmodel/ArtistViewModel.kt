@@ -18,7 +18,7 @@ class ArtistViewModel(private val deezerRepository: DeezerRepository) : BaseView
 
     private var fetching = false
 
-    fun retrieveAlbums(artistId: String, artistName: String) {
+    fun start(artistId: String, artistName: String) {
         viewModelScope.launch(exceptionHandler) {
             deezerRepository.getAlbums(artistId, artistName).apply {
                 val fetchedAlbumsList: MutableList<AlbumListItem> =
