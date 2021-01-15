@@ -1,12 +1,11 @@
 package com.binkypv.presentation.view.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import com.binkypv.presentation.adapter.ArtistAdapter
@@ -30,7 +29,7 @@ class SearchFragment : BaseFragment() {
         }
     }
     private val searchViewModel: SearchViewModel by viewModel()
-    private val searchHandler = Handler()
+    private val searchHandler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,8 +96,7 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun navigateToArtist(id: String, name: String) {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        hideKeyboard()
         findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToArtistFragment(
             id,
             name))
