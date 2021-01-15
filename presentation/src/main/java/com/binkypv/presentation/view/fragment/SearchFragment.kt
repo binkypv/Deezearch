@@ -2,6 +2,7 @@ package com.binkypv.presentation.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ private const val START_SEARCH_VIEW_FLIPPER_CHILD = 0
 private const val NO_RESULTS_VIEW_FLIPPER_CHILD = 1
 private const val RESULTS_VIEW_FLIPPER_CHILD = 2
 
+private const val TEXT_SEARCH_DELAY = 1000L
+
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     private val adapter: ArtistAdapter by lazy {
@@ -27,6 +30,7 @@ class SearchFragment : BaseFragment() {
         }
     }
     private val searchViewModel: SearchViewModel by viewModel()
+    private val searchHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,12 +60,13 @@ class SearchFragment : BaseFragment() {
 
             override fun onQueryTextChange(text: String?): Boolean {
                 if (!text.isNullOrBlank()) {
-                    searchViewModel.retrieveArtists(text)
+                    searchHandler.postDelayed({
+                        searchViewModel.retrieveArtists(text)
+                    }, TEXT_SEARCH_DELAY)
                 } else {
                     binding.searchFlipper.displayedChild = START_SEARCH_VIEW_FLIPPER_CHILD
                     adapter.submitList(emptyList())
                 }
-                binding.searchArtistsList.smoothScrollToPosition(0)
                 return false
             }
 
@@ -78,6 +83,7 @@ class SearchFragment : BaseFragment() {
             adapter.submitList(it)
             binding.searchFlipper.displayedChild =
                 if (it.isNotEmpty()) RESULTS_VIEW_FLIPPER_CHILD else NO_RESULTS_VIEW_FLIPPER_CHILD
+            binding.searchArtistsList.smoothScrollToPosition(0)
         })
 
         searchViewModel.error.observe(viewLifecycleOwner, {
