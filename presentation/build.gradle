@@ -65,4 +65,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'androidx.palette:palette-ktx:1.0.0'
+
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation "org.koin:koin-test:2.2.2"
+    testImplementation "io.mockk:mockk:1.10.5"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 }
