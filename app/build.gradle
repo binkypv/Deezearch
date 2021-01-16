@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation project(':di')
+    implementation project(':presentation')
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

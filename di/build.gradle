@@ -33,16 +33,13 @@ android {
 }
 
 dependencies {
-    api project(':presentation')
+    implementation project(':presentation')
     implementation project(':data')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation "androidx.test.ext:junit:$junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     implementation "org.koin:koin-android:$koin_version"
 }

@@ -39,8 +39,4 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation "androidx.test.ext:junit:$junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-
-    implementation "org.koin:koin-android:$koin_version"
 }
