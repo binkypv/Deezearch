@@ -3,10 +3,11 @@ package com.binkypv.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.binkypv.presentation.viewmodel.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 open class BaseViewModel : ViewModel() {
-    private val _error = MutableLiveData<String>()
+    private val _error = SingleLiveEvent<String>()
     val error: LiveData<String> = _error
 
     protected val _loading = MutableLiveData<Unit>()
