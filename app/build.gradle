@@ -53,6 +53,4 @@ dependencies {
     androidTestImplementation "org.koin:koin-android:$koin_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
     androidTestImplementation "androidx.test:core-ktx:$android_ktx_version"
-
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 }

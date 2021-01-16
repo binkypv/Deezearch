@@ -32,7 +32,7 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
         initViews()
         initListeners()
         initObservers()
-        artistViewModel.start(args.artistId, args.artistName)
+        if (adapter.itemCount == 0) artistViewModel.start(args.artistId, args.artistName)
     }
 
     private fun initViews() {
