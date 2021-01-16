@@ -36,6 +36,7 @@ ext {
     navigation_version = "2.3.2"
     retrofit_version = "2.9.0"
     okhttp_version = "4.9.0"
+    leakcanary_version = "2.6"
 }
 
 allprojects {
