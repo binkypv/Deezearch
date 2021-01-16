@@ -78,6 +78,11 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
         })
     }
 
+    override fun onDestroyView() {
+        binding.artistAlbumList.adapter = null
+        super.onDestroyView()
+    }
+
     private fun navigateToAlbum(id: String) {
         findNavController().navigate(ArtistFragmentDirections.actionArtistFragmentToAlbumFragment(id))
     }

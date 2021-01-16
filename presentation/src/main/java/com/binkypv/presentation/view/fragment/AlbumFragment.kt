@@ -112,4 +112,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
             }
         }
     }
+
+    override fun onDestroyView() {
+        binding.albumTracklist.adapter = null
+        super.onDestroyView()
+    }
 }
