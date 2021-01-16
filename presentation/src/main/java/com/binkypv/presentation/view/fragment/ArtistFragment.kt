@@ -67,7 +67,7 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>() {
 
         artistViewModel.error.observe(viewLifecycleOwner, {
             binding.artistFlipper.displayedChild = NO_RESULTS_VIEW_FLIPPER_CHILD
-            showError()
+            showError(it)
         })
 
         artistViewModel.next.observe(viewLifecycleOwner, {

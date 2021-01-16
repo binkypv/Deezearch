@@ -36,7 +36,8 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     fun showError(msg: String? = null) {
         Toast.makeText(requireContext(),
-            msg ?: getString(R.string.default_error_message),
+            msg?.let { getString(R.string.default_error_message_specific, msg) }
+                ?: getString(R.string.default_error_message),
             Toast.LENGTH_LONG).show()
     }
 

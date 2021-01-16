@@ -60,7 +60,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
         })
 
         albumTracksViewModel.error.observe(viewLifecycleOwner, {
-            showError()
+            showError(it)
         })
     }
 

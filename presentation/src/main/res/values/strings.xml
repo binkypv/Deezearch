@@ -2,6 +2,7 @@
 <resources>
     <string name="search_artists_header">Artists</string>
     <string name="default_error_message">Something went wrong :(</string>
+    <string name="default_error_message_specific">Something went wrong :( \n %s</string>
     <string name="search_screen_title">Search</string>
     <string name="albums_screen_title">Albums</string>
     <string name="search_start_text">Start your search here! Enter an artist in the searchbar</string>

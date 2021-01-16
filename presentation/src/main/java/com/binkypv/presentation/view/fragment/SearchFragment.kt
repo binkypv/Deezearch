@@ -84,7 +84,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         searchViewModel.error.observe(viewLifecycleOwner, {
             binding.searchFlipper.displayedChild = NO_RESULTS_VIEW_FLIPPER_CHILD
-            showError()
+            showError(it)
         })
 
         searchViewModel.next.observe(viewLifecycleOwner, {
