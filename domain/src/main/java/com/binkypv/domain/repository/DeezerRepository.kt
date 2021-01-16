@@ -6,7 +6,7 @@ import com.binkypv.domain.model.AlbumsResultModel
 import com.binkypv.domain.model.SearchResultModel
 
 interface DeezerRepository {
-    suspend fun getArtists(term: String, index: Int?): SearchResultModel
+    suspend fun getArtists(term: String, index: Int? = null): SearchResultModel
     suspend fun getAlbums(artistId: String, artistName: String, index: Int? = null): AlbumsResultModel
     suspend fun getAlbumDetails(albumId: String): AlbumDetailsModel
 }
