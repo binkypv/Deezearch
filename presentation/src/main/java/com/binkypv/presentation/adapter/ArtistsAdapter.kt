@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binkypv.presentation.R
 import com.binkypv.presentation.databinding.ArtistRowBinding
@@ -18,7 +19,7 @@ private const val LOADING_ITEM = 0
 private const val ARTIST_ITEM = 1
 
 class ArtistAdapter(private val onClick: (String, String) -> Unit) :
-    androidx.recyclerview.widget.ListAdapter<ArtistListItem, ArtistListItemViewHolder>(
+    ListAdapter<ArtistListItem, ArtistListItemViewHolder>(
         artistsDiffCallback) {
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {

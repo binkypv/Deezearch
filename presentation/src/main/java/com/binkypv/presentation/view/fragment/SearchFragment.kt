@@ -34,10 +34,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private val searchViewModel: SearchViewModel by viewModel()
     private val searchHandler = Handler(Looper.getMainLooper())
 
+    override fun onResume() {
+        super.onResume()
+        initListeners()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        initListeners()
         initObservers()
     }
 
@@ -86,6 +90,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         searchViewModel.next.observe(viewLifecycleOwner, {
             binding.searchArtistsList.configurePaging(it != null) { searchViewModel.loadMore() }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clearListeners()
+    }
+
+    override fun onDestroyView() {
+        binding.searchArtistsList.adapter = null
+        super.onDestroyView()
+    }
+
+    private fun clearListeners() {
+        binding.searchSearchBar.setOnQueryTextListener(null)
     }
 
     private fun navigateToArtist(id: String, name: String) {
