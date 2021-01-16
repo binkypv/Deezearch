@@ -24,18 +24,6 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/search_artists_header"
-            style="@style/BoldTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_space"
-            android:layout_marginTop="@dimen/normal_space"
-            android:text="@string/search_artists_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_toolbar" />
-
         <ViewFlipper
             android:id="@+id/search_flipper"
             android:layout_width="match_parent"
@@ -44,7 +32,7 @@
             android:layout_marginTop="@dimen/normal_space"
             android:layout_marginEnd="@dimen/normal_space"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_artists_header">
+            app:layout_constraintTop_toBottomOf="@id/search_toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -114,15 +102,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/search_artists_header"
+                    style="@style/BoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normal_space"
+                    android:text="@string/search_artists_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/search_artists_list"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/background"
+                    android:layout_marginTop="@dimen/normal_space"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/search_artists_header" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
