@@ -2,6 +2,7 @@ package com.binkypv.di
 
 import com.binkypv.data.datasource.DeezerDataSource
 import com.binkypv.data.repository.DeezerRepositoryImpl
+import com.binkypv.data.utils.Constants.BASE_URL
 import com.binkypv.domain.repository.DeezerRepository
 import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.binkypv.presentation.viewmodel.ArtistViewModel
@@ -16,8 +17,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://api.deezer.com/"
-
 object Modules {
     val viewModelModule = module {
         viewModel { SearchViewModel(get()) }
@@ -26,7 +25,8 @@ object Modules {
     }
 
     val repositoryModule = module {
-        fun provideDeezerRepository(dataSource: DeezerDataSource): DeezerRepository = DeezerRepositoryImpl(dataSource)
+        fun provideDeezerRepository(dataSource: DeezerDataSource): DeezerRepository =
+            DeezerRepositoryImpl(dataSource)
 
         single { provideDeezerRepository(get()) }
     }
@@ -43,9 +43,8 @@ object Modules {
 
         fun provideHttpClient(): OkHttpClient {
             val okHttpClientBuilder = OkHttpClient.Builder()
-//                .addInterceptor(AuthInterceptor())
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            )
+                )
             return okHttpClientBuilder.build()
         }
 
