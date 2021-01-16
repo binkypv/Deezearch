@@ -11,6 +11,7 @@
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/normal_space"
             app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +20,10 @@
             <SearchView
                 android:id="@+id/search_search_bar"
                 android:layout_width="match_parent"
+                android:searchIcon="@drawable/ic_search"
+                android:closeIcon="@drawable/ic_close"
                 android:layout_height="wrap_content"
+                android:background="@android:color/white"
                 android:iconifiedByDefault="false" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -117,8 +121,8 @@
                     android:id="@+id/search_artists_list"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@color/background"
                     android:layout_marginTop="@dimen/normal_space"
+                    android:background="@color/background"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
