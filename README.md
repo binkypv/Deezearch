@@ -1,4 +1,4 @@
-## Deezearch
+![](https://github.com/binkypv/Deezearch/blob/main/readmeimgs/readmeheader.png?raw=true)
 Small Android app using the Deezer API, for searching artists and their discography.
 
 ### Overview
