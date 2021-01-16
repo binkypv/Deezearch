@@ -9,6 +9,7 @@ import com.binkypv.presentation.model.AlbumListItem
 import com.binkypv.presentation.model.AlbumLoadingItem
 import com.binkypv.presentation.model.toDisplay
 import com.binkypv.presentation.utils.CoroutinesRule
+import com.bumptech.glide.load.HttpException
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -32,11 +33,15 @@ class ArtistViewModelTest : KoinTest {
     private val repo: DeezerRepository = mockk()
     private val observer = mockk<Observer<List<AlbumListItem>>>(relaxed = true)
     private val viewmodel = ArtistViewModel(repo)
+    private val errorObserver = mockk<Observer<String>>(relaxed = true)
+    private val loaderObserver = mockk<Observer<Unit>>(relaxed = true)
 
     @Before
     fun setup() {
         MockKAnnotations.init()
         viewmodel.results.observeForever(observer)
+        viewmodel.error.observeForever(errorObserver)
+        viewmodel.loading.observeForever(loaderObserver)
     }
 
     @Test
@@ -121,5 +126,20 @@ class ArtistViewModelTest : KoinTest {
 
         // then
         coVerify(exactly = 1) { repo.getAlbums("id", "name", 25) }
+    }
+
+    @Test
+    fun given_single_page_result_when_album_retrieval_fails_then_show_error() {
+        // given
+        coEvery { repo.getAlbums(any(), any(), any()) }.throws(HttpException("error"))
+
+        // when
+        runBlocking {
+            viewmodel.start("id", "name")
+        }
+
+        // then
+        coVerify(exactly = 1) { repo.getAlbums("id", "name") }
+        verify { errorObserver.onChanged("error") }
     }
 }

@@ -9,6 +9,7 @@ import com.binkypv.presentation.model.ArtistListItem
 import com.binkypv.presentation.model.ArtistLoadingItem
 import com.binkypv.presentation.model.toDisplay
 import com.binkypv.presentation.utils.CoroutinesRule
+import com.bumptech.glide.load.HttpException
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -31,12 +32,16 @@ class SearchViewModelTest : KoinTest {
 
     private val repo: DeezerRepository = mockk()
     private val observer = mockk<Observer<List<ArtistListItem>>>(relaxed = true)
+    private val errorObserver = mockk<Observer<String>>(relaxed = true)
+    private val loaderObserver = mockk<Observer<Unit>>(relaxed = true)
     private val viewmodel = SearchViewModel(repo)
 
     @Before
     fun setup() {
         MockKAnnotations.init()
         viewmodel.results.observeForever(observer)
+        viewmodel.error.observeForever(errorObserver)
+        viewmodel.loading.observeForever(loaderObserver)
     }
 
     @Test
@@ -62,6 +67,7 @@ class SearchViewModelTest : KoinTest {
 
         // then
         coVerify(exactly = 1) { repo.getArtists("name", null) }
+        verify { loaderObserver.onChanged(Unit) }
         verify { observer.onChanged(model.artists.map { it.toDisplay() }) }
     }
 
@@ -92,6 +98,7 @@ class SearchViewModelTest : KoinTest {
 
         // then
         coVerify(exactly = 1) { repo.getArtists("name", null) }
+        verify { loaderObserver.onChanged(Unit) }
         verify { observer.onChanged(result) }
     }
 
@@ -118,5 +125,22 @@ class SearchViewModelTest : KoinTest {
 
         // then
         coVerify(exactly = 1) { repo.getArtists("name", 25) }
+        verify { loaderObserver.onChanged(Unit) }
+    }
+
+    @Test
+    fun given_single_page_result_when_artist_search_throws_error_then_show_error() {
+        // given
+        coEvery { repo.getArtists(any(), any()) }.throws(HttpException("error"))
+
+        // when
+        runBlocking {
+            viewmodel.onSearchTermChanged("name")
+        }
+
+        // then
+        coVerify(exactly = 1) { repo.getArtists("name", null) }
+        verify { loaderObserver.onChanged(Unit) }
+        verify { errorObserver.onChanged("error") }
     }
 }
