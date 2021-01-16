@@ -153,7 +153,7 @@ class MapperTests {
             25,
             listOf(
                 AlbumModel(
-                    "title", "artist", "cover", "id"
+                    "title", "artist", "coverMedium", "id"
                 )
             )
         )

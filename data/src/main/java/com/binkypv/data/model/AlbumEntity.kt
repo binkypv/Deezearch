@@ -32,5 +32,5 @@ data class AlbumEntity(
     @SerializedName("explicity_lyrics") val explicitLyrics: Boolean,
     @SerializedName("type") val type: String,
 ) {
-    fun toDomain(artist: String) = AlbumModel(title, artist, cover, id)
+    fun toDomain(artist: String) = AlbumModel(title, artist, coverMedium, id)
 }
