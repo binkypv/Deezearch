@@ -2,7 +2,7 @@
 Small Android app using the Deezer API, for searching artists and their discography.
 
 ### Overview
-![](https://github.com/binkypv/Deezearch/blob/main/readmeimgs/DeezearchExample.gif?raw=true)
+![](https://github.com/binkypv/Deezearch/blob/feature/parallax-collapsing-toolbar/readmeimgs/DeezearchExample.gif?raw=true)
 
 ### Features
 - Search artists
