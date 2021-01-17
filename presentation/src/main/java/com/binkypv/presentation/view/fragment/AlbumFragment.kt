@@ -14,7 +14,6 @@ import androidx.palette.graphics.Palette
 import com.binkypv.presentation.R
 import com.binkypv.presentation.adapter.TracklistAdapter
 import com.binkypv.presentation.databinding.FragmentAlbumBinding
-import com.binkypv.presentation.databinding.FragmentSearchBinding
 import com.binkypv.presentation.viewmodel.AlbumTracksViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -22,6 +21,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.appbar.AppBarLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,6 +32,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
     private val adapter: TracklistAdapter by lazy { TracklistAdapter() }
     private val albumTracksViewModel: AlbumTracksViewModel by viewModel()
     private val args: AlbumFragmentArgs by navArgs()
+
+    private var isShow = true
+    private var scrollRange = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,10 +60,27 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
             setCoverArt(it.coverUrl)
             binding.albumArtist.text = it.artist
             binding.albumTitle.text = it.title
+            setCollapsingToolbarTitle(it.title)
         })
 
         albumTracksViewModel.error.observe(viewLifecycleOwner, {
             showError(it)
+        })
+    }
+
+    private fun setCollapsingToolbarTitle(title: String) {
+        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener
+        { _, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = binding.appBarLayout.totalScrollRange
+            }
+            if ((scrollRange + verticalOffset) == 0) {
+                binding.albumCollapsingToolbar.title = title
+                isShow = true
+            } else if (isShow) {
+                binding.albumCollapsingToolbar.title = " "
+                isShow = false
+            }
         })
     }
 
@@ -108,7 +128,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
                 val gradient = GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
                     intArrayOf(dominantColor ?: R.color.background, R.color.background))
-                binding.albumTopLayout.background = gradient
+                binding.albumCollapsingToolbar.background = gradient
+                binding.albumCollapsingToolbar.setContentScrimColor(dominantColor
+                    ?: R.color.background)
             }
         }
     }

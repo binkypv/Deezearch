@@ -48,6 +48,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayout_version"
     testImplementation 'junit:junit:4.+'
 
     // Koin

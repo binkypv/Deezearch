@@ -37,6 +37,7 @@ ext {
     retrofit_version = "2.9.0"
     okhttp_version = "4.9.0"
     leakcanary_version = "2.6"
+    coordinatorlayout_version = "1.1.0"
 }
 
 allprojects {
