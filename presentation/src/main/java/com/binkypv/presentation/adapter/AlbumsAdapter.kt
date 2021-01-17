@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binkypv.presentation.R
 import com.binkypv.presentation.databinding.AlbumRowBinding
 import com.binkypv.presentation.databinding.LoadingItemBinding
+import com.binkypv.presentation.databinding.LoadingSquareItemBinding
 import com.binkypv.presentation.model.AlbumDisplay
 import com.binkypv.presentation.model.AlbumListItem
 import com.binkypv.presentation.model.AlbumLoadingItem
@@ -31,7 +32,7 @@ class AlbumsAdapter(private val onClick: (String) -> Unit) :
         when (viewType) {
             LOADING_ITEM -> {
                 LoadingAlbumViewHolder(
-                    LoadingItemBinding.inflate(
+                    LoadingSquareItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -86,7 +87,7 @@ class AlbumViewHolder(private val binding: AlbumRowBinding) :
     }
 }
 
-class LoadingAlbumViewHolder(private val binding: LoadingItemBinding) :
+class LoadingAlbumViewHolder(private val binding: LoadingSquareItemBinding) :
     AlbumListItemViewHolder(binding.root)
 
 sealed class AlbumListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
